@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicXNA", "PhysicXNA\PhysicXNA\PhysicXNA.csproj", "{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicXNAContent", "PhysicXNA\PhysicXNAContent\PhysicXNAContent.contentproj", "{A63AD6EC-CA41-4D5F-8506-E411EA491C52}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SistemaPerfiles", "SistemaPerfiles\SistemaPerfiles.vcxproj", "{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EditorPerfiles", "EditorPerfiles\EditorPerfiles.vbproj", "{7FCBD584-5B7D-4531-8081-A15FBF9AC319}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Debug|x86 = Debug|x86
+		Debug|Xbox 360 = Debug|Xbox 360
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+		Release|x86 = Release|x86
+		Release|Xbox 360 = Release|Xbox 360
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Debug|Win32.ActiveCfg = Debug|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Debug|Win32.Build.0 = Debug|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Debug|x86.ActiveCfg = Debug|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Debug|x86.Build.0 = Debug|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Debug|Xbox 360.ActiveCfg = Debug|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Debug|Xbox 360.Build.0 = Debug|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Release|Any CPU.ActiveCfg = Release|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Release|Mixed Platforms.Build.0 = Release|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Release|Win32.ActiveCfg = Release|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Release|Win32.Build.0 = Release|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Release|x86.ActiveCfg = Release|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Release|x86.Build.0 = Release|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Release|Xbox 360.ActiveCfg = Release|x86
+		{AB5D2CC0-519A-43FA-B7B6-C9C752A44716}.Release|Xbox 360.Build.0 = Release|x86
+		{A63AD6EC-CA41-4D5F-8506-E411EA491C52}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A63AD6EC-CA41-4D5F-8506-E411EA491C52}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{A63AD6EC-CA41-4D5F-8506-E411EA491C52}.Debug|Win32.ActiveCfg = Debug|x86
+		{A63AD6EC-CA41-4D5F-8506-E411EA491C52}.Debug|x86.ActiveCfg = Debug|x86
+		{A63AD6EC-CA41-4D5F-8506-E411EA491C52}.Debug|Xbox 360.ActiveCfg = Debug|x86
+		{A63AD6EC-CA41-4D5F-8506-E411EA491C52}.Release|Any CPU.ActiveCfg = Release|x86
+		{A63AD6EC-CA41-4D5F-8506-E411EA491C52}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{A63AD6EC-CA41-4D5F-8506-E411EA491C52}.Release|Win32.ActiveCfg = Release|x86
+		{A63AD6EC-CA41-4D5F-8506-E411EA491C52}.Release|x86.ActiveCfg = Release|x86
+		{A63AD6EC-CA41-4D5F-8506-E411EA491C52}.Release|Xbox 360.ActiveCfg = Release|x86
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Debug|Win32.Build.0 = Debug|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Debug|x86.ActiveCfg = Debug|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Debug|x86.Build.0 = Debug|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Debug|Xbox 360.ActiveCfg = Debug|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Release|Any CPU.ActiveCfg = Release|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Release|Win32.ActiveCfg = Release|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Release|Win32.Build.0 = Release|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Release|x86.ActiveCfg = Release|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Release|x86.Build.0 = Release|Win32
+		{E0E892C2-2E46-4DCC-8274-711B67FA9AB5}.Release|Xbox 360.ActiveCfg = Release|Win32
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Debug|Xbox 360.ActiveCfg = Debug|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Release|Win32.ActiveCfg = Release|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Release|x86.ActiveCfg = Release|Any CPU
+		{7FCBD584-5B7D-4531-8081-A15FBF9AC319}.Release|Xbox 360.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
