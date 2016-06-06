@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("PhysicXNA")]
 [assembly: AssemblyProduct("PhysicXNA")]
-[assembly: AssemblyDescription("Juego de acertijos y retos con enfoque en la física")]
+[assembly: AssemblyDescription("Juego de acertijos y retos con enfoque en la física.")]
 [assembly: AssemblyCompany("FractaGames Lml")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

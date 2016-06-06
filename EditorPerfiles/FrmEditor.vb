@@ -531,6 +531,7 @@ Public Class FrmEditor
             Next
             ListaPerfilesJugadorAbierta(LstPerfilesJugador.SelectedIndex + 1) = perfilSeleccionado
             NumNivelPuntuaciones.Value = NumNivelPuntuaciones.Minimum
+            LblPuntuacion.Text = "00:00:00"
             AplicarCambios()
 
         End If

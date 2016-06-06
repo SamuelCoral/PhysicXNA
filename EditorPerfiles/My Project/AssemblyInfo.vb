@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Revisar los valores de los atributos del ensamblado
 
-<Assembly: AssemblyTitle("Editor de perfiles de PhisicXNA")> 
-<Assembly: AssemblyDescription("Aplicación auxiliar para realizar operaciones de edición de perfiles de PhisicXNA.")> 
+<Assembly: AssemblyTitle("Editor de perfiles de PhysicXNA")> 
+<Assembly: AssemblyDescription("Aplicación auxiliar para realizar operaciones de edición de perfiles de PhysicXNA.")> 
 <Assembly: AssemblyCompany("FractaGames Lml")> 
-<Assembly: AssemblyProduct("Editor de perfiles de PhisicXNA")> 
-<Assembly: AssemblyCopyright("Copyright ©  2016")> 
+<Assembly: AssemblyProduct("Editor de perfiles de PhysicXNA")> 
+<Assembly: AssemblyCopyright("")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(True)> 
