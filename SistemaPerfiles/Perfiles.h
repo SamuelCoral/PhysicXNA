@@ -142,7 +142,7 @@ struct NodoPerfil {
  *  ruta	- Nombre y ruta del archivo a cargar
  * 
  */
-EXPORTAR_DLL struct NodoPerfil* CargarPerfilesArchivo(const char* ruta);
+EXPORTAR_DLL struct NodoPerfil* __cdecl CargarPerfilesArchivo(const char* ruta);
 
 
 /* 
@@ -155,7 +155,7 @@ EXPORTAR_DLL struct NodoPerfil* CargarPerfilesArchivo(const char* ruta);
  *  ruta		- Nombre y ruta del archivo a guardar
  * 
  */
-EXPORTAR_DLL bool GuardarPerfilesArchivo(struct NodoPerfil* perfiles, const char* ruta);
+EXPORTAR_DLL bool __cdecl GuardarPerfilesArchivo(struct NodoPerfil* perfiles, const char* ruta);
 
 
 /* 
@@ -168,7 +168,7 @@ EXPORTAR_DLL bool GuardarPerfilesArchivo(struct NodoPerfil* perfiles, const char
  *  nuevo		- Perfil a agregar a la lista
  * 
  */
-EXPORTAR_DLL bool AgregarNodoPerfil(struct NodoPerfil** perfiles, struct PerfilJugador* nuevo);
+EXPORTAR_DLL bool __cdecl AgregarNodoPerfil(struct NodoPerfil** perfiles, struct PerfilJugador* nuevo);
 
 
 /* 
@@ -181,7 +181,7 @@ EXPORTAR_DLL bool AgregarNodoPerfil(struct NodoPerfil** perfiles, struct PerfilJ
  *  lugar		- Posición en la lista que ocupa el nodo a eliminar comenzando en 1
  * 
  */
-EXPORTAR_DLL bool EliminarNodoPerfil(struct NodoPerfil** perfiles, int lugar);
+EXPORTAR_DLL bool __cdecl EliminarNodoPerfil(struct NodoPerfil** perfiles, int lugar);
 
 
 /* 
@@ -195,7 +195,7 @@ EXPORTAR_DLL bool EliminarNodoPerfil(struct NodoPerfil** perfiles, int lugar);
  *  lugar		- Posición en la lista que ocupa el nodo a tomar comenzando en 1
  * 
  */
-EXPORTAR_DLL struct PerfilJugador* VerPerfilLista(struct NodoPerfil* perfiles, int lugar);
+EXPORTAR_DLL struct PerfilJugador* __cdecl VerPerfilLista(struct NodoPerfil* perfiles, int lugar);
 
 
 /*
@@ -209,7 +209,7 @@ EXPORTAR_DLL struct PerfilJugador* VerPerfilLista(struct NodoPerfil* perfiles, i
  *  lugar		- Posición en la lista que ocupa el nodo a tomar comenzando en 1
  * 
  */
-EXPORTAR_DLL struct NodoPerfil* VerNodoLista(struct NodoPerfil* perfiles, int lugar);
+EXPORTAR_DLL struct NodoPerfil* __cdecl VerNodoLista(struct NodoPerfil* perfiles, int lugar);
 
 
 /* 
@@ -223,7 +223,7 @@ EXPORTAR_DLL struct NodoPerfil* VerNodoLista(struct NodoPerfil* perfiles, int lu
  *  segundo		- Lugar en la lista del segundo perfil
  * 
  */
-EXPORTAR_DLL bool IntercambiarPerfiles(struct NodoPerfil** perfiles, int primero, int segundo);
+EXPORTAR_DLL bool __cdecl IntercambiarPerfiles(struct NodoPerfil** perfiles, int primero, int segundo);
 
 
 /* 
@@ -238,7 +238,7 @@ EXPORTAR_DLL bool IntercambiarPerfiles(struct NodoPerfil** perfiles, int primero
  *  lugar		- Posición en la lista que ocupa el nodo a sobreescribir comenzando en 1
  * 
  */
-EXPORTAR_DLL bool ActualizarPerfilLista(struct NodoPerfil* perfiles, struct PerfilJugador* perfil, int lugar);
+EXPORTAR_DLL bool __cdecl ActualizarPerfilLista(struct NodoPerfil* perfiles, struct PerfilJugador* perfil, int lugar);
 
 
 /* 
@@ -252,7 +252,7 @@ EXPORTAR_DLL bool ActualizarPerfilLista(struct NodoPerfil* perfiles, struct Perf
  *  nombre		- Nombre del perfil a buscar
  * 
  */
-EXPORTAR_DLL int BuscarNodoPerfil(struct NodoPerfil* perfiles, const char* nombre);
+EXPORTAR_DLL int __cdecl BuscarNodoPerfil(struct NodoPerfil* perfiles, const char* nombre);
 
 
 /* 
@@ -263,7 +263,7 @@ EXPORTAR_DLL int BuscarNodoPerfil(struct NodoPerfil* perfiles, const char* nombr
  *  perfiles	- Lista de perfiles de la que se contarán los elementos
  * 
  */
-EXPORTAR_DLL int ContarNodosPerfilLista(struct NodoPerfil* perfiles);
+EXPORTAR_DLL int __cdecl ContarNodosPerfilLista(struct NodoPerfil* perfiles);
 
 
 /* 
@@ -276,7 +276,7 @@ EXPORTAR_DLL int ContarNodosPerfilLista(struct NodoPerfil* perfiles);
  *  perfiles	- Lista de perfiles a ser eliminada
  * 
  */
-EXPORTAR_DLL void EliminarListaPerfiles(struct NodoPerfil* perfiles);
+EXPORTAR_DLL void __cdecl EliminarListaPerfiles(struct NodoPerfil* perfiles);
 
 
 /* 
@@ -287,7 +287,7 @@ EXPORTAR_DLL void EliminarListaPerfiles(struct NodoPerfil* perfiles);
  *  perfil	- Perfil de jugador a verificar
  * 
  */
-EXPORTAR_DLL bool EsPerfilCorrecto(struct PerfilJugador* perfil);
+EXPORTAR_DLL bool __cdecl EsPerfilCorrecto(struct PerfilJugador* perfil);
 
 
 #ifdef __cplusplus
