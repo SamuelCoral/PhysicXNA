@@ -232,7 +232,7 @@ namespace PhysicXNA.Niveles.Nivel1
             ia.Actualizar(gameTime, resolucionPantalla, estadoTeclado, opciones, this, monito.Posicion);
             
             Rectangle areaMonito = new Rectangle((int)monito.Posicion.X,(int)monito.Posicion.Y,monito.Ancho,monito.Alto);
-            if (((opciones.invertir_mouse != 0 ? estadoRaton.RightButton == ButtonState.Pressed && estadoRatonAnt.RightButton == ButtonState.Released :
+            if (((opciones.invertir_mouse ? estadoRaton.RightButton == ButtonState.Pressed && estadoRatonAnt.RightButton == ButtonState.Released :
                 estadoRaton.LeftButton == ButtonState.Pressed && estadoRatonAnt.LeftButton == ButtonState.Released) ||
                 (estadoTeclado.IsKeyDown(Keys.Space) && !estadoTecladoAnt.IsKeyDown(Keys.Space))) && !herramanientaCorrecta) 
             {
@@ -244,14 +244,14 @@ namespace PhysicXNA.Niveles.Nivel1
                         {
                             herramanientaCorrecta = true;
                             pedestal.Color = Color.White;
-                            if (opciones.sonidos != 0) bien.Play();
+                            if (opciones.sonidos) bien.Play();
                         }
                         else {
 
                             tiempoCompletado += new TimeSpan(0, 0, opciones.dificultad == SistemaPerfiles.DificultadJuego.Fácil ? 30 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Medio ? 45 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Difícil ? 60 : 0);
                             tiempoMalo = new TimeSpan(0, 0, 3);
                             tiempo.Color = Color.Red;
-                            if (opciones.sonidos != 0) mal.Play();
+                            if (opciones.sonidos) mal.Play();
                         }
                     }
                 }
@@ -263,7 +263,7 @@ namespace PhysicXNA.Niveles.Nivel1
                 anotacion = new TimeSpan(0, 0, 3);
                 anotaciones.Color = Color.Navy;
 
-                if (opciones.sonidos != 0) bien.Play();
+                if (opciones.sonidos) bien.Play();
                 if(vecesRepetido >= vecesCompletar) nivelCompletado = true;
                 herramientasAnteriores.Add(herramientasEscogidas[herramientaAgarrar]);
                 if(!nivelCompletado) Reiniciar();
@@ -276,7 +276,7 @@ namespace PhysicXNA.Niveles.Nivel1
                 tiempo.Color = Color.Red;
                 monito.Posicion = new Vector2(50, resolucionPantalla.Height - monito.Alto);
                 ia.Posicion = new Vector2((resolucionPantalla.Width - ia.Ancho) / 2, resolucionPantalla.Height - ia.Alto);
-                if (opciones.sonidos != 0) mal.Play();
+                if (opciones.sonidos) mal.Play();
             }
 
             foreach (DuendeAnimado plataforma in plataformas) plataforma.Actualizar(gameTime, resolucionPantalla, estadoTeclado);

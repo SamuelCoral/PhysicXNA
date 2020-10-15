@@ -23,7 +23,7 @@ namespace PhysicXNA
         Random aleatorio;
         bool menuMostrado, menuMostradoAnt, juegoMostrado, juegoMostradoAnt;
 
-        /// <summary>Constructor del juego.</summary><remarks>Aquí es donde deberíamos comenzar a analizar el programa.</remarks>
+        /// <summary>Constructor del juego.</summary><remarks>Aquï¿½ es donde deberï¿½amos comenzar a analizar el programa.</remarks>
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -83,7 +83,6 @@ namespace PhysicXNA
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
-            perfiles.Dispose();
         }
 
         /// <summary>
@@ -108,7 +107,7 @@ namespace PhysicXNA
                     menu.escenario = niveles[(int)menu.nivelEjecutandose].nuevoEscenario;
                     niveles[(int)menu.nivelEjecutandose].Visible = true;
                     menu.reproductorVideo.Resume();
-                    if (perfiles[menu.perfilSeleccionado].opciones.musica != 0) MediaPlayer.Pause();
+                    if (perfiles[menu.perfilSeleccionado].opciones.musica) MediaPlayer.Pause();
                 }
 
                 if (!menuMostrado && menuMostradoAnt)
@@ -118,12 +117,12 @@ namespace PhysicXNA
                         MediaPlayer.Stop();
                         niveles[(int)menu.nivelEjecutandose].Inicializar();
                         MediaPlayer.Play(niveles[(int)menu.nivelEjecutandose].cancionNivel);
-                        if (perfiles[menu.perfilSeleccionado].opciones.musica == 0) MediaPlayer.Pause();
+                        if (!perfiles[menu.perfilSeleccionado].opciones.musica) MediaPlayer.Pause();
                         menu.escenario = 1;
                     }
 
                     niveles[(int)menu.nivelEjecutandose].Enabled = niveles[(int)menu.nivelEjecutandose].Visible = true;
-                    if (perfiles[menu.perfilSeleccionado].opciones.musica != 0) MediaPlayer.Resume();
+                    if (perfiles[menu.perfilSeleccionado].opciones.musica) MediaPlayer.Resume();
 
                     if (menu.escenario == (int)EscenarioMenu.SalirNivel)
                     {
@@ -135,7 +134,7 @@ namespace PhysicXNA
                         menu.escenario = 1;
                         MediaPlayer.Stop();
                         MediaPlayer.Play(menu.cancion);
-                        if (perfiles[menu.perfilSeleccionado].opciones.musica == 0) MediaPlayer.Pause();
+                        if (!perfiles[menu.perfilSeleccionado].opciones.musica) MediaPlayer.Pause();
                     }
                 }
             }
@@ -153,7 +152,7 @@ namespace PhysicXNA
                 if (!niveles[nivelJugar].reproduciendoVideo)
                 {
                     MediaPlayer.Play(niveles[nivelJugar].cancionNivel);
-                    if (opciones.musica == 0) MediaPlayer.Pause();
+                    if (!opciones.musica) MediaPlayer.Pause();
                 }
                 menu.reglasNivel = niveles[nivelJugar].reglas;
                 menu.textoSabiasQue = SabiasQue.mensajes[aleatorio.Next(SabiasQue.mensajes.Length)];
@@ -165,7 +164,7 @@ namespace PhysicXNA
             {
                 graphics.PreferredBackBufferWidth = perfiles[menu.perfilSeleccionado].opciones.res_horizontal;
                 graphics.PreferredBackBufferHeight = perfiles[menu.perfilSeleccionado].opciones.res_vertical;
-                graphics.IsFullScreen = perfiles[menu.perfilSeleccionado].opciones.pantalla_completa != 0;
+                graphics.IsFullScreen = perfiles[menu.perfilSeleccionado].opciones.pantalla_completa;
                 graphics.ApplyChanges();
                 if (menu.nivelEjecutandose != null) niveles[(int)menu.nivelEjecutandose].opciones = perfiles[menu.perfilSeleccionado].opciones;
                 MediaPlayer.Volume = perfiles[menu.perfilSeleccionado].opciones.volumen / 255f;
@@ -194,7 +193,7 @@ namespace PhysicXNA
                             if (perfillTemporal.opciones.nivel >= ListaPerfilesJugador.numeroNiveles)
                             {
                                 perfillTemporal.opciones.nivel = 0;
-                                perfillTemporal.opciones.juego_completado = 1;
+                                perfillTemporal.opciones.juego_completado = true;
                                 menu.mostrarCreditos = true;
                             }
                         }
@@ -215,7 +214,7 @@ namespace PhysicXNA
                         menu.reproductorVideo.Play(menu.fondo);
                         MediaPlayer.Stop();
                         MediaPlayer.Play(menu.cancion);
-                        if (perfiles[menu.perfilSeleccionado].opciones.musica == 0) MediaPlayer.Pause();
+                        if (!perfiles[menu.perfilSeleccionado].opciones.musica) MediaPlayer.Pause();
                     }
 
                     niveles[(int)menu.nivelEjecutandose].Enabled = niveles[(int)menu.nivelEjecutandose].Visible = false;

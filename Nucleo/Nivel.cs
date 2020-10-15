@@ -133,14 +133,14 @@ namespace PhysicXNA.Nucleo
 
             if (reproduciendoVideo)
             {
-                if(reproductorVideo.State == MediaState.Stopped || (opciones.invertir_mouse == 0 ?
+                if(reproductorVideo.State == MediaState.Stopped || (!opciones.invertir_mouse ?
                     estadoRaton.LeftButton == ButtonState.Released && estadoRatonAnt.LeftButton == ButtonState.Pressed :
                     estadoRaton.RightButton == ButtonState.Released && estadoRatonAnt.RightButton == ButtonState.Pressed))
                 {
                     reproductorVideo.Stop();
                     reproduciendoVideo = false;
                     MediaPlayer.Play(cancionNivel);
-                    if (opciones.musica == 0) MediaPlayer.Pause();
+                    if (!opciones.musica) MediaPlayer.Pause();
                 }
 
                 estadoTecladoAnt = estadoTeclado;
@@ -151,7 +151,7 @@ namespace PhysicXNA.Nucleo
             tiempoCompletado += gameTime.ElapsedGameTime;
             tiempoJuego += gameTime.ElapsedGameTime.Milliseconds;
 
-            if ((opciones.invertir_mouse == 0 ? estadoRaton.LeftButton == ButtonState.Pressed && estadoRatonAnt.LeftButton == ButtonState.Released : estadoRaton.RightButton == ButtonState.Pressed && estadoRatonAnt.RightButton == ButtonState.Released)
+            if ((!opciones.invertir_mouse ? estadoRaton.LeftButton == ButtonState.Pressed && estadoRatonAnt.LeftButton == ButtonState.Released : estadoRaton.RightButton == ButtonState.Pressed && estadoRatonAnt.RightButton == ButtonState.Released)
                 && estadoRaton.X > botonPausa.Posicion.X && estadoRaton.Y < botonPausa.Alto)
             {
                 estadoRaton = new MouseState(estadoRaton.X, estadoRaton.Y, estadoRaton.ScrollWheelValue, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);
@@ -159,7 +159,7 @@ namespace PhysicXNA.Nucleo
                 Enabled = Visible = false;
             }
 
-            if ((opciones.invertir_mouse == 0 ? estadoRaton.LeftButton == ButtonState.Pressed && estadoRatonAnt.LeftButton == ButtonState.Released : estadoRaton.RightButton == ButtonState.Pressed && estadoRatonAnt.RightButton == ButtonState.Released) 
+            if ((!opciones.invertir_mouse ? estadoRaton.LeftButton == ButtonState.Pressed && estadoRatonAnt.LeftButton == ButtonState.Released : estadoRaton.RightButton == ButtonState.Pressed && estadoRatonAnt.RightButton == ButtonState.Released) 
                 && estadoRaton.X > botonAyuda.Posicion.X && estadoRaton.Y < botonAyuda.Alto)
             {
                 estadoRaton = new MouseState(estadoRaton.X, estadoRaton.Y, estadoRaton.ScrollWheelValue, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released, ButtonState.Released);

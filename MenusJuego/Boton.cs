@@ -217,14 +217,14 @@ namespace PhysicXNA.MenusJuego
             menuOrigen.botones[2][3].valor = (int)perfilAuxiliarTemporal.opciones.dificultad;
             int resolucionEscogida = Pantalla.ObtenerResoluciones().IndexOf(perfilAuxiliarTemporal.opciones.res_horizontal.ToString() + " x " + perfilAuxiliarTemporal.opciones.res_vertical.ToString());
             menuOrigen.botones[3][1].valor = resolucionEscogida < 0 ? 0 : resolucionEscogida;
-            menuOrigen.botones[3][2].valor = perfilAuxiliarTemporal.opciones.pantalla_completa;
-            menuOrigen.botones[4][1].valor = perfilAuxiliarTemporal.opciones.musica;
-            menuOrigen.botones[4][2].valor = perfilAuxiliarTemporal.opciones.sonidos;
+            menuOrigen.botones[3][2].valor = perfilAuxiliarTemporal.opciones.pantalla_completa ? 1 : 0;
+            menuOrigen.botones[4][1].valor = perfilAuxiliarTemporal.opciones.musica ? 1 : 0;
+            menuOrigen.botones[4][2].valor = perfilAuxiliarTemporal.opciones.sonidos ? 1 : 0;
             menuOrigen.botones[4][3].valor = perfilAuxiliarTemporal.opciones.volumen;
-            menuOrigen.botones[5][1].valor = perfilAuxiliarTemporal.opciones.wasd;
-            menuOrigen.botones[5][2].valor = perfilAuxiliarTemporal.opciones.invertir_mouse;
+            menuOrigen.botones[5][1].valor = perfilAuxiliarTemporal.opciones.wasd ? 1 : 0;
+            menuOrigen.botones[5][2].valor = perfilAuxiliarTemporal.opciones.invertir_mouse ? 1 : 0;
 
-            if (perfilAuxiliarTemporal.opciones.musica == 0)
+            if (!perfilAuxiliarTemporal.opciones.musica)
             {
                 MediaPlayer.Stop();
                 MediaPlayer.Play(menuOrigen.cancion);
@@ -233,7 +233,7 @@ namespace PhysicXNA.MenusJuego
             else if (MediaPlayer.State == MediaState.Paused) MediaPlayer.Resume();
 
             int nivel = perfilAuxiliarTemporal.opciones.nivel;
-            bool juegoCompletado = perfilAuxiliarTemporal.opciones.juego_completado != 0;
+            bool juegoCompletado = perfilAuxiliarTemporal.opciones.juego_completado;
 
             if (juegoCompletado && nivel == 0)
             {
@@ -287,7 +287,7 @@ namespace PhysicXNA.MenusJuego
                                 String[] dimensiones = new String[2];
                                 dimensiones = menuOrigen.botones[3][1].opciones[menuOrigen.botones[3][1].valor].Split(new char[] { 'x' }, 2);
                                 perfilTemporal.opciones = new OpcionesJuego(perfilTemporal.opciones.nombre, perfilTemporal.opciones.nivel,
-                                    perfilTemporal.opciones.juego_completado != 0, (DificultadJuego)menuOrigen.botones[2][3].valor,
+                                    perfilTemporal.opciones.juego_completado, (DificultadJuego)menuOrigen.botones[2][3].valor,
                                     new Point(int.Parse(dimensiones[0]), int.Parse(dimensiones[1])), menuOrigen.botones[3][2].valor != 0,
                                     menuOrigen.botones[4][2].valor != 0, menuOrigen.botones[4][1].valor != 0, menuOrigen.botones[4][3].valor,
                                     menuOrigen.botones[5][1].valor != 0, menuOrigen.botones[5][2].valor != 0);
@@ -437,12 +437,12 @@ namespace PhysicXNA.MenusJuego
                             case AccionBotonMenu.Continuar:
                                 if (!menuOrigen.jugarHistoria)
                                 {
-                                    if(menuOrigen.perfiles[menuOrigen.perfilSeleccionado].opciones.musica != 0) MediaPlayer.Play(menuOrigen.cancion);
+                                    if(menuOrigen.perfiles[menuOrigen.perfilSeleccionado].opciones.musica) MediaPlayer.Play(menuOrigen.cancion);
                                     if (menuOrigen.reproductorVideo.State != MediaState.Stopped) menuOrigen.reproductorVideo.Stop();
                                     menuOrigen.reproductorVideo.Play(menuOrigen.fondo);
                                     MediaPlayer.Stop();
                                     MediaPlayer.Play(menuOrigen.cancion);
-                                    if (menuOrigen.perfiles[menuOrigen.perfilSeleccionado].opciones.musica == 0) MediaPlayer.Pause();
+                                    if (!menuOrigen.perfiles[menuOrigen.perfilSeleccionado].opciones.musica) MediaPlayer.Pause();
                                     menuOrigen.escenario = 1;
                                 }
                                 else

@@ -53,7 +53,7 @@ namespace PhysicXNA.Niveles.Nivel5
         /// <param name="estadoRaton">Estado del ratón.</param>
         public void Actualizar(GameTime tiempoJuego, Viewport graficos, KeyboardState teclado, MouseState estadoRaton)
         {
-            anguloFuerza = escenario.opciones.wasd != 0 ? teclado.IsKeyDown(Keys.W) ? teclado.IsKeyDown(Keys.D) ? -Math.PI / 4 : -Math.PI / 2 :
+            anguloFuerza = escenario.opciones.wasd ? teclado.IsKeyDown(Keys.W) ? teclado.IsKeyDown(Keys.D) ? -Math.PI / 4 : -Math.PI / 2 :
                 teclado.IsKeyDown(Keys.D) ? teclado.IsKeyDown(Keys.S) ? Math.PI / 4 : 0 :
                 teclado.IsKeyDown(Keys.S) ? teclado.IsKeyDown(Keys.A) ? Math.PI * 3 / 4 : Math.PI / 2 :
                 teclado.IsKeyDown(Keys.A) ? teclado.IsKeyDown(Keys.W) ? -Math.PI * 3 / 4 : Math.PI : 0 :
@@ -61,9 +61,9 @@ namespace PhysicXNA.Niveles.Nivel5
                 teclado.IsKeyDown(Keys.Right) ? teclado.IsKeyDown(Keys.Down) ? Math.PI / 4 : 0 :
                 teclado.IsKeyDown(Keys.Down) ? teclado.IsKeyDown(Keys.Left) ? Math.PI * 3 / 4 : Math.PI / 2 :
                 teclado.IsKeyDown(Keys.Left) ? teclado.IsKeyDown(Keys.Up) ? -Math.PI * 3 / 4 : Math.PI : 0;
-            avanzando = escenario.opciones.wasd != 0 ? teclado.IsKeyDown(Keys.W) || teclado.IsKeyDown(Keys.A) || teclado.IsKeyDown(Keys.S) || teclado.IsKeyDown(Keys.D) :
+            avanzando = escenario.opciones.wasd ? teclado.IsKeyDown(Keys.W) || teclado.IsKeyDown(Keys.A) || teclado.IsKeyDown(Keys.S) || teclado.IsKeyDown(Keys.D) :
                 teclado.IsKeyDown(Keys.Up) || teclado.IsKeyDown(Keys.Left) || teclado.IsKeyDown(Keys.Down) || teclado.IsKeyDown(Keys.Right);
-            fuerzaMovimiento = 100000 * (teclado.IsKeyDown(Keys.RightShift) || teclado.IsKeyDown(Keys.LeftShift) || (escenario.opciones.invertir_mouse != 0 ? estadoRaton.LeftButton == ButtonState.Pressed : estadoRaton.RightButton == ButtonState.Pressed) ? 5 : 1) / (teclado.IsKeyDown(Keys.RightControl) || teclado.IsKeyDown(Keys.LeftControl) ? 2f : 1f);
+            fuerzaMovimiento = 100000 * (teclado.IsKeyDown(Keys.RightShift) || teclado.IsKeyDown(Keys.LeftShift) || (escenario.opciones.invertir_mouse ? estadoRaton.LeftButton == ButtonState.Pressed : estadoRaton.RightButton == ButtonState.Pressed) ? 5 : 1) / (teclado.IsKeyDown(Keys.RightControl) || teclado.IsKeyDown(Keys.LeftControl) ? 2f : 1f);
 
             aceleracion = !avanzando ? Vector2.Zero : new Vector2((float)(Math.Cos(anguloFuerza) * fuerzaMovimiento / masa), (float)(Math.Sin(anguloFuerza) * fuerzaMovimiento / masa));
             velocidad += aceleracion * tiempoJuego.ElapsedGameTime.Milliseconds / 1000f;

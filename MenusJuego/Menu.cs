@@ -221,7 +221,7 @@ namespace PhysicXNA.MenusJuego
             {
                 reproductorVideo.Play(fondo);
                 int nivel = perfiles[perfilSeleccionado].opciones.nivel;
-                bool juegoCompletado = perfiles[perfilSeleccionado].opciones.juego_completado != 0;
+                bool juegoCompletado = perfiles[perfilSeleccionado].opciones.juego_completado;
 
                 botones[1][1].visible = juegoCompletado;
                 if (juegoCompletado && nivel == 0)

@@ -176,13 +176,13 @@ namespace PhysicXNA.Niveles.Nivel3
             tiempo.Texto = tiempoCompletado.Minutes.ToString("00") + ":" + tiempoCompletado.Seconds.ToString("00");
 
             cañon.Actualizar(gameTime, resolucionPantalla, estadoTeclado);
-            if ((opciones.invertir_mouse == 0 ? estadoRaton.LeftButton == ButtonState.Pressed : estadoRaton.RightButton == ButtonState.Pressed) && !aventada)
+            if ((!opciones.invertir_mouse ? estadoRaton.LeftButton == ButtonState.Pressed : estadoRaton.RightButton == ButtonState.Pressed) && !aventada)
             {
                 cañon.AnguloGiro = vector.AnguloGiro = (float)Math.Atan2((estadoRaton.Y - vector.Posicion.Y), (estadoRaton.X - vector.Posicion.X));
                 vector.Escala = new Vector2((float)Math.Sqrt((estadoRaton.X - vector.Posicion.X) * (estadoRaton.X - vector.Posicion.X) + (estadoRaton.Y - vector.Posicion.Y) * (estadoRaton.Y - vector.Posicion.Y)) / vector.AnchoReal, 0.25f);
             }
 
-            if ((opciones.invertir_mouse == 0 ? estadoRaton.LeftButton == ButtonState.Released && estadoRatonAnt.LeftButton == ButtonState.Pressed :
+            if ((!opciones.invertir_mouse ? estadoRaton.LeftButton == ButtonState.Released && estadoRatonAnt.LeftButton == ButtonState.Pressed :
                 estadoRaton.RightButton == ButtonState.Released && estadoRatonAnt.RightButton == ButtonState.Pressed) && !aventada)
             {
                 cañon.disparando = aventada = true;
@@ -190,10 +190,10 @@ namespace PhysicXNA.Niveles.Nivel3
                 double velocidadA = Math.Sqrt((2 * (double)vector.Ancho) / pixelesXMetro.Y * 2 * gravedad);
                 vi = new Vector2((float)(Math.Cos(vector.AnguloGiro) * velocidadA), -(float)(Math.Sin(vector.AnguloGiro) * velocidadA));
                 tiempoSalto = 0;
-                if (opciones.sonidos != 0) disparo.Play(0.25f, 0f, 0f);
+                if (opciones.sonidos) disparo.Play(0.25f, 0f, 0f);
             }
 
-            if (opciones.invertir_mouse == 0 ? estadoRaton.LeftButton == ButtonState.Released : estadoRaton.RightButton == ButtonState.Released) vector.Escala = Vector2.Zero;
+            if (!opciones.invertir_mouse ? estadoRaton.LeftButton == ButtonState.Released : estadoRaton.RightButton == ButtonState.Released) vector.Escala = Vector2.Zero;
 
             if (aventada)
             {
@@ -209,7 +209,7 @@ namespace PhysicXNA.Niveles.Nivel3
                     tiempoCompletado += new TimeSpan(0, 0, opciones.dificultad == SistemaPerfiles.DificultadJuego.Fácil ? 5 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Medio ? 10 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Difícil ? 15 : 0);
                     tiempoMalo = new TimeSpan(0, 0, 3);
                     tiempo.Color = Color.Red;
-                    if (opciones.sonidos != 0) mal.Play();
+                    if (opciones.sonidos) mal.Play();
                     Reiniciar();
                 }
 
@@ -220,7 +220,7 @@ namespace PhysicXNA.Niveles.Nivel3
                     anotaciones.Texto = vecesRepetido.ToString();
                     Anotacion = new TimeSpan(0, 0, 3);
                     anotaciones.Color = Color.Gold;
-                    if (opciones.sonidos != 0) bien.Play();
+                    if (opciones.sonidos) bien.Play();
                     if (vecesRepetido == vecesCompletar) nivelCompletado = true;
                     Reiniciar();
                 }

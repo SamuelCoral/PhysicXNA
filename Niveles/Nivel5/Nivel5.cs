@@ -177,13 +177,13 @@ namespace PhysicXNA.Niveles.Nivel5
             {
                 nave.posicionAbsoluta = new Vector2((fondo.Ancho - nave.Ancho) / 2f, (fondo.Alto - nave.Alto) / 2f);
                 nave.velocidad = Vector2.Zero;
-                if (opciones.sonidos != 0) sonidoExplosion.Play(1f, -1f, 0f);
+                if (opciones.sonidos) sonidoExplosion.Play(1f, -1f, 0f);
                 tiempoCompletado += new TimeSpan(0, 0, opciones.dificultad == SistemaPerfiles.DificultadJuego.Fácil ? 10 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Medio ? 15 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Difícil ? 20 : 0);
                 tiempoMalo = new TimeSpan(0, 0, 3);
                 tiempo.Color = Color.Red;
             }
 
-            if (opciones.invertir_mouse == 0 ? estadoRaton.LeftButton == ButtonState.Pressed && estadoRatonAnt.LeftButton == ButtonState.Released : estadoRaton.RightButton == ButtonState.Pressed && estadoRatonAnt.RightButton == ButtonState.Released)
+            if (!opciones.invertir_mouse ? estadoRaton.LeftButton == ButtonState.Pressed && estadoRatonAnt.LeftButton == ButtonState.Released : estadoRaton.RightButton == ButtonState.Pressed && estadoRatonAnt.RightButton == ButtonState.Released)
             {
                 Vector2 posicionNuevoProyectil = nave.posicionAbsoluta + new Vector2(nave.Ancho / 2f, nave.Alto / 2f);
                 double anguloGiroNuevoProyectil = Math.Atan2(estadoRaton.Y - (nave.Posicion.Y + nave.Alto / 2f), estadoRaton.X - (nave.Posicion.X + nave.Ancho / 2f));
@@ -193,7 +193,7 @@ namespace PhysicXNA.Niveles.Nivel5
                 nuevoProyectil.Escala = new Vector2(0.2f);
                 nuevoProyectil.OrigenGiro = new Vector2(0, nuevoProyectil.AltoReal / 2f);
                 proyectiles.Add(nuevoProyectil);
-                if(opciones.sonidos != 0) sonidoLaser.Play();
+                if(opciones.sonidos) sonidoLaser.Play();
                 //objetosFlotando.Add(nuevoProyectil);
             }
 
@@ -222,7 +222,7 @@ namespace PhysicXNA.Niveles.Nivel5
                                 explosion1.CargarContenido(Content);
                                 explosion1.Escala = new Vector2((float)meteorito.Ancho / explosion1.AnchoReal) * 2f;
                                 explosiones.Add(explosion1);
-                                if (opciones.sonidos != 0) sonidoExplosion.Play(1f, -1f, 0f);
+                                if (opciones.sonidos) sonidoExplosion.Play(1f, -1f, 0f);
                                 meteoritosDestruidos++;
                                 anotaciones.Texto = meteoritosDestruidos.ToString();
                                 anotacion = new TimeSpan(0, 0, 3);
@@ -235,7 +235,7 @@ namespace PhysicXNA.Niveles.Nivel5
                                 explosion1.CargarContenido(Content);
                                 explosion1.Escala = new Vector2(circulo.radio * 2f / explosion1.AnchoReal) * 2f;
                                 explosiones.Add(explosion1);
-                                if (opciones.sonidos != 0) sonidoExplosion.Play(1f, 1f, 0f);
+                                if (opciones.sonidos) sonidoExplosion.Play(1f, 1f, 0f);
                             }
                             break;
                         }
@@ -272,7 +272,7 @@ namespace PhysicXNA.Niveles.Nivel5
                     explosiones.Add(explosion2);
                     nave.posicionAbsoluta = new Vector2((fondo.Ancho - nave.Ancho) / 2f, (fondo.Alto - nave.Alto) / 2f);
                     nave.velocidad = Vector2.Zero;
-                    if (opciones.sonidos != 0) sonidoExplosion.Play(1f, -1f, 0f);
+                    if (opciones.sonidos) sonidoExplosion.Play(1f, -1f, 0f);
                     tiempoCompletado += new TimeSpan(0, 0, opciones.dificultad == SistemaPerfiles.DificultadJuego.Fácil ? 5 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Medio ? 10 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Difícil ? 15 : 0);
                     tiempoMalo = new TimeSpan(0, 0, 3);
                     tiempo.Color = Color.Red;

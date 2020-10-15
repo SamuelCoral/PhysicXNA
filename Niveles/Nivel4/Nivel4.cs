@@ -244,7 +244,7 @@ namespace PhysicXNA.Niveles.Nivel4
             distancia.Posicion = new Vector2(lineaDistancia.Posicion.X - lineaDistancia.Ancho - distancia.TamTexto.X - 5, lineaDistancia.Posicion.Y);
             tiempo.Texto = tiempoCompletado.Minutes.ToString("00") + ":" + tiempoCompletado.Seconds.ToString("00");
 
-            if ((opciones.invertir_mouse == 0 ? estadoRaton.LeftButton == ButtonState.Pressed : estadoRaton.RightButton == ButtonState.Pressed)
+            if ((!opciones.invertir_mouse ? estadoRaton.LeftButton == ButtonState.Pressed : estadoRaton.RightButton == ButtonState.Pressed)
                 && estadoCaja == EstadoObjeto.EnReposo && estadoMonito == EstadoObjeto.EnReposo)
             {
                 barraLlena.Escala = new Vector2(barraLlena.Escala.X + (float)gameTime.ElapsedGameTime.Milliseconds / 1000 * barraVacia.Ancho / barraLlena.AnchoReal / tiempoRebote * (barritaAvanzando ? 1 : -1), barraLlena.Escala.Y);
@@ -263,7 +263,7 @@ namespace PhysicXNA.Niveles.Nivel4
                     (float)barraLlena.Ancho / barraVacia.Ancho < 0.5f ? 1f : 1f - (((float)barraLlena.Ancho / barraVacia.Ancho) - 0.5f) * 2, 0);
             }
 
-            if ((opciones.invertir_mouse == 0 ? estadoRaton.LeftButton == ButtonState.Released && estadoRatonAnt.LeftButton == ButtonState.Pressed : estadoRaton.RightButton == ButtonState.Released && estadoRatonAnt.RightButton == ButtonState.Pressed) &&
+            if ((!opciones.invertir_mouse ? estadoRaton.LeftButton == ButtonState.Released && estadoRatonAnt.LeftButton == ButtonState.Pressed : estadoRaton.RightButton == ButtonState.Released && estadoRatonAnt.RightButton == ButtonState.Pressed) &&
                 estadoCaja == EstadoObjeto.EnReposo && estadoMonito == EstadoObjeto.EnReposo)
             {
                 //vi = barraLlena.Escala.X * 10 - gravedad * masaCaja * friccion * 2;
@@ -274,7 +274,7 @@ namespace PhysicXNA.Niveles.Nivel4
                 tiempoTranscurrido = 0;
                 monitoEmpujando.CuadroActual = Point.Zero;
                 estadoMonito = estadoCaja = EstadoObjeto.Empujando;
-                if (opciones.sonidos != 0) empuje.Play();
+                if (opciones.sonidos) empuje.Play();
             }
             if (estadoMonito != EstadoObjeto.EnReposo || estadoCaja != EstadoObjeto.EnReposo)
             {
@@ -325,7 +325,7 @@ namespace PhysicXNA.Niveles.Nivel4
                     (estadoCaja == EstadoObjeto.Caido && estadoMonito == EstadoObjeto.Caido))
                 {
                     tiempoCompletado += new TimeSpan(0, 0, opciones.dificultad == SistemaPerfiles.DificultadJuego.Fácil ? 5 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Medio ? 10 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Difícil ? 15 : 0);
-                    if (opciones.sonidos != 0) mal.Play();
+                    if (opciones.sonidos) mal.Play();
                     Reiniciar();
                     tiempoMalo = new TimeSpan(0, 0, 3);
                     tiempo.Color = Color.Red;
@@ -334,7 +334,7 @@ namespace PhysicXNA.Niveles.Nivel4
                 {
                     anotacion = new TimeSpan(0, 0, 3);
                     anotaciones.Color = Color.Navy;
-                    if (opciones.sonidos != 0) bien.Play();
+                    if (opciones.sonidos) bien.Play();
                     Reiniciar();
                     vecesCompletado++;
                     anotaciones.Texto = vecesCompletado.ToString();
@@ -342,7 +342,7 @@ namespace PhysicXNA.Niveles.Nivel4
                 }
             }
 
-            if ((opciones.invertir_mouse == 0 ? estadoRaton.LeftButton == ButtonState.Released : estadoRaton.RightButton == ButtonState.Released)
+            if ((!opciones.invertir_mouse ? estadoRaton.LeftButton == ButtonState.Released : estadoRaton.RightButton == ButtonState.Released)
                 && estadoCaja == EstadoObjeto.EnReposo && estadoMonito == EstadoObjeto.EnReposo) barraLlena.Escala = new Vector2(0, 1f);
 
             if (tiempoMalo >= TimeSpan.Zero) { tiempo.Actualizar(gameTime); tiempoMalo -= gameTime.ElapsedGameTime; }

@@ -163,22 +163,22 @@ namespace PhysicXNA.Nucleo
         /// <param name="posicionSeguir">Posición del personaje a seguir en caso de que sea una IA.</param>
         public void Actualizar(GameTime tiempoJuego, Viewport graficos, KeyboardState teclado, SistemaPerfiles.OpcionesJuego opciones, Niveles.Nivel1.Nivel1 nivelOrigen = null, Vector2 posicionSeguir = new Vector2())
         {
-            if ((!IA ? (opciones.wasd == 0 ? teclado.IsKeyDown(Keys.Up) : teclado.IsKeyDown(Keys.W)) :
+            if ((!IA ? (!opciones.wasd ? teclado.IsKeyDown(Keys.Up) : teclado.IsKeyDown(Keys.W)) :
                 (Posicion.X > (posicionSeguir.X - Velocidad * 2) && Posicion.X < (posicionSeguir.X + Velocidad * 2) && Posicion.Y > posicionSeguir.Y)) && !salto)
             {
                 vi = Math.Sqrt(((double)(graficos.Height - 75) / 3) / pixelesxmetro * 2 * gravedad);
                 tiempoTranscurrido = 0;
                 salto = true;
-                if (opciones.sonidos != 0) salta.Play(0.4f, -0.5f * (IA ? 2 : 1), -0.28f);
+                if (opciones.sonidos) salta.Play(0.4f, -0.5f * (IA ? 2 : 1), -0.28f);
             }
-            else if ((!IA ? (opciones.wasd == 0 ? teclado.IsKeyDown(Keys.Down) : teclado.IsKeyDown(Keys.S)) :
+            else if ((!IA ? (!opciones.wasd ? teclado.IsKeyDown(Keys.Down) : teclado.IsKeyDown(Keys.S)) :
                 (Posicion.X > (posicionSeguir.X - Velocidad * 2) && Posicion.X < (posicionSeguir.X + Velocidad * 2) && Posicion.Y < posicionSeguir.Y)) && !salto)
             {
                 vi = 0;
                 salto = true;
                 tiempoTranscurrido = 0;
             }
-            if (!IA ? (opciones.wasd == 0 ? teclado.IsKeyDown(Keys.Right) : teclado.IsKeyDown(Keys.D)) : 
+            if (!IA ? (!opciones.wasd ? teclado.IsKeyDown(Keys.Right) : teclado.IsKeyDown(Keys.D)) : 
                 (posicionSeguir.X > Posicion.X + Velocidad))
             {
                 Posicion = new Vector2(Posicion.X + velocidad, Posicion.Y);
@@ -186,7 +186,7 @@ namespace PhysicXNA.Nucleo
                 caminando.Efecto = saltando.Efecto = parado.Efecto = SpriteEffects.None;
                 estaCaminando = true;
             }
-            else if (!IA ? (opciones.wasd == 0 ? teclado.IsKeyDown(Keys.Left) : teclado.IsKeyDown(Keys.A)) :
+            else if (!IA ? (!opciones.wasd ? teclado.IsKeyDown(Keys.Left) : teclado.IsKeyDown(Keys.A)) :
                 (posicionSeguir.X < Posicion.X - Velocidad))
             {
                 Posicion = new Vector2(Posicion.X - velocidad, Posicion.Y);

@@ -2,19 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.IO;
+using System.Text.Json;
+using System.Linq;
 
 namespace PhysicXNA.SistemaPerfiles
 {
     /// <summary>Lista de perfiles de jugador.</summary>
-    public partial class ListaPerfilesJugador : IEnumerable<PerfilJugador>, IDisposable
+    public partial class ListaPerfilesJugador : IEnumerable<PerfilJugador>
     {
-        unsafe private NodoPerfil* lista = null;
+        private List<PerfilJugador> lista = new List<PerfilJugador>();
         /// <summary>Cantidad de niveles del juego.</summary>
         public const int numeroNiveles = 5;
         /// <summary>Tamaño máximo en bytes del nombre de jugador.</summary>
         public const int tamNombresJugador = 30;
         /// <summary>Ruta donde se almacenarán los perfiles de jugador. Por default, en la carpeta "Mis documentos" del usuario logueado.</summary>
-        public static String rutaPerfiles = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\PhysicXNA-Perfiles.pjpx";
+        public static String rutaPerfiles = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\PhysicXNA-Perfiles.json";
 
         #region Constructores
 
@@ -30,12 +33,16 @@ namespace PhysicXNA.SistemaPerfiles
         /// <param name="rutaArchivo">Ruta del archivo de los perfiles.</param>
         public ListaPerfilesJugador(String rutaArchivo)
         {
-            unsafe
+            try
             {
-                lista = CargarPerfilesArchivo(rutaArchivo);
-                // No arrojar excepciones, si hay un error simplemente crear una lista vacía
-                //if (lista == null) throw new ExcepcionPerfilJugador("No se pudo cargar el perfil de jugador.");
+                lista = JsonSerializer.Deserialize<List<PerfilJugador>>(File.ReadAllText(rutaArchivo));
             }
+            catch(FileNotFoundException)
+            {
+                
+            }
+            // No arrojar excepciones, si hay un error simplemente crear una lista vacía
+            //if (lista == null) throw new ExcepcionPerfilJugador("No se pudo cargar el perfil de jugador.");
         }
 
         #endregion
@@ -48,9 +55,13 @@ namespace PhysicXNA.SistemaPerfiles
         /// <param name="rutaArchivo">Ruta del archivo de destino.</param>
         public void Guadar(String rutaArchivo)
         {
-            unsafe
+            try
             {
-                if(GuardarPerfilesArchivo(lista, rutaArchivo) == 0) throw new ExcepcionPerfilJugador("No se pudo guardar el perfil de jugador.");
+                File.WriteAllText(rutaArchivo, JsonSerializer.Serialize(lista));
+            }
+            catch(IOException)
+            {
+                throw new ExcepcionPerfilJugador("No se pudo guardar el perfil de jugador.");
             }
         }
 
@@ -61,11 +72,9 @@ namespace PhysicXNA.SistemaPerfiles
         /// <param name="nuevo">Perfil a agregar.</param>
         public void AgregarPerfil(PerfilJugador nuevo)
         {
-            unsafe
-            {
-                if (BuscarNodoPerfil(lista, nuevo.opciones.nombre) != 0) throw new ExcepcionPerfilJugador("Ya existe otro perfil con el mismo nombre.");
-                if (AgregarNodoPerfil(ref lista, ref nuevo) == 0) throw new ExcepcionPerfilJugador("No se pudo agregar el nuevo perfil de jugador.");
-            }
+            if(lista.Any(perfil => perfil.opciones.nombre == nuevo.opciones.nombre))
+                throw new ExcepcionPerfilJugador("Ya existe otro perfil con el mismo nombre.");
+            lista.Add(nuevo);
         }
 
         /// <summary>
@@ -74,10 +83,7 @@ namespace PhysicXNA.SistemaPerfiles
         /// <param name="lugar">Lugar que ocupa el perfil a eliminar.</param>
         public void EliminarPerfil(int lugar)
         {
-            unsafe
-            {
-                if (EliminarNodoPerfil(ref lista, lugar) == 0) throw new IndexOutOfRangeException("No se pudo eliminar el perfil de jugador.");
-            }
+            lista.RemoveAt(lugar - 1);
         }
 
         /// <summary>
@@ -86,12 +92,7 @@ namespace PhysicXNA.SistemaPerfiles
         /// <param name="nombre">Nombre del perfil a eliminar.</param>
         public void EliminarPerfil(String nombre)
         {
-            unsafe
-            {
-                int lugar = BuscarNodoPerfil(lista, nombre);
-                if (lugar == 0) throw new ExcepcionPerfilJugador("No existe el perfil especificado.");
-                EliminarPerfil(lugar);
-            }
+            lista.RemoveAt(BuscarPerfil(nombre) - 1);
         }
 
         /// <summary>
@@ -101,10 +102,7 @@ namespace PhysicXNA.SistemaPerfiles
         /// <returns>Booleano que indica si existe el perfil solicitado.</returns>
         public bool ExistePerfil(String nombre)
         {
-            unsafe
-            {
-                return BuscarNodoPerfil(lista, nombre) != 0;
-            }
+            return lista.Any(perfil => perfil.opciones.nombre == nombre);
         }
 
         /// <summary>
@@ -115,10 +113,14 @@ namespace PhysicXNA.SistemaPerfiles
         /// <returns>El lugar que ocupa en la lista comenzando en 1.</returns>
         public int BuscarPerfil(String nombre)
         {
-            unsafe
+            int i = 1;
+            foreach(PerfilJugador perfil in lista)
             {
-                return BuscarNodoPerfil(lista, nombre);
+                if(perfil.opciones.nombre == nombre)
+                    return i;
+                i++;
             }
+            return 0;
         }
 
         /// <summary>
@@ -126,24 +128,7 @@ namespace PhysicXNA.SistemaPerfiles
         /// </summary>
         public void Limpiar()
         {
-            unsafe
-            {
-                EliminarListaPerfiles(lista);
-                lista = null;
-            }
-        }
-
-        /// <summary>
-        /// Intercambia las posiciones en la lista de 2 perfiles de jugador.
-        /// </summary>
-        /// <param name="primero">Posición en la lista del primer perfil a intercambiar.</param>
-        /// <param name="segundo">Posición en la lista del segundo perfil a intercambiar.</param>
-        public void IntercambiarLugares(int primero, int segundo)
-        {
-            unsafe
-            {
-                if (IntercambiarPerfiles(ref lista, primero, segundo) == 0) throw new ExcepcionPerfilJugador("No se encontró alguno de los perfiles especificados en la lista.");
-            }
+            lista = new List<PerfilJugador>();
         }
 
         /// <summary>
@@ -153,10 +138,7 @@ namespace PhysicXNA.SistemaPerfiles
         {
             get
             {
-                unsafe
-                {
-                    return ContarNodosPerfilLista(lista);
-                }
+                return lista.Count;
             }
         }
 
@@ -188,22 +170,16 @@ namespace PhysicXNA.SistemaPerfiles
         {
             get
             {
-                unsafe
-                {
-                    if (index < 1 || index > NumeroPerfiles) throw new IndexOutOfRangeException("No existe el perfil especificado.");
-                    return (PerfilJugador)Marshal.PtrToStructure(VerPerfilLista(lista, index), typeof(PerfilJugador));
-                }
+                if (index < 1 || index > NumeroPerfiles) throw new IndexOutOfRangeException("No existe el perfil especificado.");
+                return lista[index - 1];
             }
 
             set
             {
-                unsafe
-                {
-                    if (index < 1 || index > NumeroPerfiles) throw new IndexOutOfRangeException("No existe el perfil especificado.");
-                    int lugar = BuscarNodoPerfil(lista, value.opciones.nombre);
-                    if(lugar != 0 && lugar != index) throw new ExcepcionPerfilJugador("Ya existe otro perfil con el mismo nombre");
-                    ActualizarPerfilLista(lista, ref value, index);
-                }
+                if (index < 1 || index > NumeroPerfiles) throw new IndexOutOfRangeException("No existe el perfil especificado.");
+                int lugar = BuscarPerfil(value.opciones.nombre);
+                if(lugar != 0 && lugar != index) throw new ExcepcionPerfilJugador("Ya existe otro perfil con el mismo nombre");
+                lista[index - 1] = value;
             }
         }
 
@@ -216,144 +192,29 @@ namespace PhysicXNA.SistemaPerfiles
         {
             get
             {
-                unsafe
-                {
-                    int lugar = BuscarNodoPerfil(lista, index);
-                    if (lugar == 0) throw new ExcepcionPerfilJugador("No existe el perfil especificado");
-                    return this[lugar];
-                }
+                int lugar = BuscarPerfil(index);
+                if (lugar == 0) throw new ExcepcionPerfilJugador("No existe el perfil especificado");
+                return this[lugar];
             }
 
             set
             {
-                unsafe
-                {
-                    int lugar = BuscarNodoPerfil(lista, index);
-                    if (lugar == 0) throw new ExcepcionPerfilJugador("No existe el perfil especificado");
-                    this[lugar] = value;
-                }
+                int lugar = BuscarPerfil(index);
+                if (lugar == 0) throw new ExcepcionPerfilJugador("No existe el perfil especificado");
+                this[lugar] = value;
             }
         }
 
         #endregion
 
-        #region Implementación de IEnumerable
-
-        /// <summary>Clase auxiliar enumeradora de perfiles.</summary>
-        public class EnumeradorListaPerfilesJugador : IEnumerator<PerfilJugador>
-        {
-            unsafe private NodoPerfil* lista;
-            int lugar = 0;
-
-            /// <summary>
-            /// Construye un enumerador de perfiles a partir del primer nodo de la lista.
-            /// </summary>
-            /// <param name="lista">Primer nodo de la lista de perfiles.</param>
-            unsafe public EnumeradorListaPerfilesJugador(NodoPerfil* lista)
-            {
-                this.lista = lista;
-            }
-
-            /// <summary>Obtiene el elemento apuntado.</summary>
-            unsafe public PerfilJugador Current
-            {
-                get { return (PerfilJugador)Marshal.PtrToStructure(VerPerfilLista(lista, lugar), typeof(PerfilJugador)); }
-            }
-
-            object IEnumerator.Current
-            {
-                get { return Current; }
-            }
-
-            /// <summary>
-            /// Mueve el apuntador al siguiente elemento.
-            /// </summary>
-            /// <returns>false en caso de que no se pueda seguir avanzando.</returns>
-            public bool MoveNext()
-            {
-                unsafe
-                {
-                    lugar++;
-                    return lugar <= ContarNodosPerfilLista(lista);
-                }
-            }
-
-            /// <summary>Reinicia el apuntador del enumerador.</summary>
-            public void Reset()
-            {
-                lugar = 0;
-            }
-
-            /// <summary>Libera los recursos ocupados por el enumerador de la lista.</summary>
-            public void Dispose()
-            {
-                
-            }
-        }
-
-
-        /// <summary>
-        /// Devuelve un enumerador de la lista de perfiles.
-        /// </summary>
-        /// <returns>Enumerador de la lista.</returns>
-        public EnumeradorListaPerfilesJugador GetEnumerator()
-        {
-            unsafe
-            {
-                return new EnumeradorListaPerfilesJugador(lista);
-            }
-        }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return (IEnumerator)GetEnumerator();
+            return lista.GetEnumerator();
         }
 
         IEnumerator<PerfilJugador> IEnumerable<PerfilJugador>.GetEnumerator()
         {
-            return (IEnumerator<PerfilJugador>)GetEnumerator();
+            return lista.GetEnumerator();
         }
-
-        #endregion
-
-        #region Destructor e Implementación de IDisposable
-
-        /// <summary>Indica si ya se ha liberado los recursos ocupados por la lista.</summary>
-        protected bool liberado = false;
-
-        /// <summary>
-        /// Libera los recursos ocupados por la lista de perfiles.
-        /// </summary>
-        /// <param name="disposing">Indica si se ha llamado a este método explícitamente.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            unsafe
-            {
-                if (liberado) return;
-                if (disposing)
-                {
-                    // Liberar objetos administrados
-                }
-
-                // Liberar objetos no administrados
-                Limpiar();
-                liberado = true;
-            }
-        }
-
-        /// <summary>Libera los recursos ocupados por la lista de perfiles.</summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>Libera los recursos ocupados por la lista de perfiles.</summary>
-        ~ListaPerfilesJugador()
-        {
-            Dispose(false);
-        }
-
-        #endregion
     }
 }

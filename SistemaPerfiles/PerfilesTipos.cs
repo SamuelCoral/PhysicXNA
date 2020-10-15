@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 
 namespace PhysicXNA.SistemaPerfiles
 {
     /// <summary>Dificultad en la que se ejecuta el juego, usada en algunos niveles.</summary>
-    public enum DificultadJuego : byte
+    public enum DificultadJuego
     {
         /// <summary>Fácil.</summary>
         Fácil       = 0,
@@ -16,40 +15,38 @@ namespace PhysicXNA.SistemaPerfiles
     }
 
     /// <summary>Estructura que contiene el nombre del perfil, último nivel alcanzado, dificultad del juego y opciones de vídeo, sonido y controles.</summary>
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 8)]
     public struct OpcionesJuego
     {
         /// <summary>Nombre del perfil.</summary><remarks>NOTA: No pueden haber 2 perfiles con el mismo nombre y no puede exceder los 40 caracteres.</remarks>
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = ListaPerfilesJugador.tamNombresJugador)]
         public String nombre;
         /// <summary>Último nivel del juego superado.</summary><remarks>NOTA: No puede exceder 5.</remarks>
-	    public Byte nivel;
+	    public int nivel;
         /// <summary>Booleano que indica si ya se han completado todos los niveles del juego por lo menos una vez.</summary>
-        public Byte juego_completado;
+        public bool juego_completado;
         /// <summary>Dificultad del juego elegida. Véase <see cref="DificultadJuego"/></summary>
         public DificultadJuego dificultad;
 
 	    // Opciones de video
         /// <summary>Resolución horizontal de pantalla.</summary>
-        public UInt16 res_horizontal;
+        public int res_horizontal;
         /// <summary>Resolución vertical de pantalla.</summary>
-        public UInt16 res_vertical;
+        public int res_vertical;
         /// <summary>Booleano que indica si usar o no pantalla completa.</summary>
-        public Byte pantalla_completa;
+        public bool pantalla_completa;
 
 	    // Opciones de sonido
         /// <summary>Booleano que indica si usar o no los sonidos de los efectos especiales.</summary>
-        public Byte sonidos;
+        public bool sonidos;
         /// <summary>Booleano que indica si usar o no la música en el juego.</summary>
-        public Byte musica;
+        public bool musica;
         /// <summary>Volumen de la música dle juego.</summary>
-        public Byte volumen;
+        public int volumen;
 
         // Opciones de controles
         /// <summary>Booleano que indica si usar WASD o las teclas direccionales.</summary>
-        public Byte wasd;
+        public bool wasd;
         /// <summary>Booleano que indica si se desea invertir los botones del mouse.</summary>
-        public Byte invertir_mouse;
+        public bool invertir_mouse;
 
         /// <summary>
         /// Crea una instancia de esta estructura dadas todas sus propiedades.
@@ -68,17 +65,17 @@ namespace PhysicXNA.SistemaPerfiles
         public OpcionesJuego(String nombre, int nivel, bool juegoCompletado, DificultadJuego dificultad, Point resolucionPantalla, bool pantallaCompleta, bool sonidos, bool musica, int volumen, bool usarWASD, bool invertirBotonesMouse)
         {
             this.nombre = nombre;
-            this.nivel = (Byte)nivel;
-            this.juego_completado = juegoCompletado ? (Byte)1 : (Byte)0;
+            this.nivel = nivel;
+            this.juego_completado = juegoCompletado;
             this.dificultad = dificultad;
-            this.res_horizontal = (UInt16)resolucionPantalla.X;
-            this.res_vertical = (UInt16)resolucionPantalla.Y;
-            this.pantalla_completa = pantallaCompleta ? (Byte)1 : (Byte)0;
-            this.sonidos = sonidos ? (Byte)1 : (Byte)0;
-            this.musica = musica ? (Byte)1 : (Byte)0;
-            this.volumen = (Byte)volumen;
-            this.wasd = usarWASD ? (Byte)1 : (Byte)0;
-            this.invertir_mouse = invertirBotonesMouse ? (Byte)1 : (Byte)0;
+            this.res_horizontal = resolucionPantalla.X;
+            this.res_vertical = resolucionPantalla.Y;
+            this.pantalla_completa = pantallaCompleta;
+            this.sonidos = sonidos;
+            this.musica = musica;
+            this.volumen = (int)volumen;
+            this.wasd = usarWASD;
+            this.invertir_mouse = invertirBotonesMouse;
         }
 
         /// <summary>
@@ -89,16 +86,16 @@ namespace PhysicXNA.SistemaPerfiles
         {
             this.nombre = nombre;
             this.nivel = 0;
-            this.juego_completado = 0;
+            this.juego_completado = false;
             this.dificultad = 0;
             this.res_horizontal = 800;
             this.res_vertical = 600;
-            this.pantalla_completa = 0;
-            this.sonidos = 1;
-            this.musica = 1;
+            this.pantalla_completa = false;
+            this.sonidos = true;
+            this.musica = true;
             this.volumen = 255;
-            this.wasd = 0;
-            this.invertir_mouse = 0;
+            this.wasd = false;
+            this.invertir_mouse = false;
         }
 
         /// <summary>
@@ -110,28 +107,27 @@ namespace PhysicXNA.SistemaPerfiles
             return
                 "Nombre de jugador:         " + nombre + "\n" +
                 "Último nivel superado:     " + nivel.ToString() + "\n" +
-                "Juego completado:          " + (juego_completado == 0 ? "Falso" : "Cierto") +
+                "Juego completado:          " + (juego_completado ? "Cierto" : "Falso") +
                 "Dificultad de juego:       " + dificultad.ToString() + "\n" +
                 "Resolución de pantalla:    " + res_horizontal.ToString() + " x " + res_vertical.ToString() + "\n" +
-                "Pantalla completa:         " + (pantalla_completa == 0 ? "Desactivada" : "Activada") + "\n" +
-                "Sonidos:                   " + (sonidos == 0 ? "Desactivados" : "Activados") + "\n" +
-                "Música:                    " + (musica == 0 ? "Desactivada" : "Activada") + "\n" +
+                "Pantalla completa:         " + (pantalla_completa ? "Activada" : "Desactivada") + "\n" +
+                "Sonidos:                   " + (sonidos ? "Activados" : "Desactivados") + "\n" +
+                "Música:                    " + (musica ? "Activada" : "Desactivada") + "\n" +
                 "Volumen de la música:      " + volumen.ToString() + "\n" +
-                "Usar WASD:                 " + (wasd == 0 ? "Desactivado" : "Activado") + "\n" +
-                "Invertir ratón:            " + (invertir_mouse == 0 ? "Desactivado" : "Activado");
+                "Usar WASD:                 " + (wasd ? "Activado" : "Desactivado") + "\n" +
+                "Invertir ratón:            " + (invertir_mouse ? "Activado" : "Desactivado");
         }
     }
 
     /// <summary>Estructura que contiene la puntuación de un nivel.</summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct PuntuacionesJuego
     {
         /// <summary>Minutos del tiempo en que se superó el nivel.</summary><remarks>NOTA: No puede exceder 100.</remarks>
-        public Byte minutos;
+        public int minutos;
         /// <summary>Segundos del tiempo en que se superó el nivel.</summary><remarks>NOTA: No puede exceder 60.</remarks>
-        public Byte segundos;
+        public int segundos;
         /// <summary>Centisegundos del tiempo en que se superó el nivel.</summary><remarks>NOTA: No puede exceder 100.</remarks>
-        public Byte centisegundos;
+        public int centisegundos;
 
         /// <summary>
         /// Crea una instancia de esta estructura dadas todas sus propiedades.
@@ -142,9 +138,9 @@ namespace PhysicXNA.SistemaPerfiles
         public PuntuacionesJuego(int minutos, int segundos, int centisegundos)
         {
             if (minutos >= 100 || segundos >= 60 || centisegundos >= 100) throw new ExcepcionPerfilJugador("Valores de tiempo no válidos.");
-            this.minutos = (Byte)minutos;
-            this.segundos = (Byte)segundos;
-            this.centisegundos = (Byte)centisegundos;
+            this.minutos = (int)minutos;
+            this.segundos = (int)segundos;
+            this.centisegundos = (int)centisegundos;
         }
 
         /// <summary>
@@ -153,9 +149,9 @@ namespace PhysicXNA.SistemaPerfiles
         /// <param name="tiempo">Tiempo en que se superó el nivel. Véase <see cref="TimeSpan"/></param>
         public PuntuacionesJuego(TimeSpan tiempo)
         {
-            this.minutos = (Byte)tiempo.Minutes;
-            this.segundos = (Byte)tiempo.Seconds;
-            this.centisegundos = (Byte)(tiempo.Milliseconds / 10);
+            this.minutos = (int)tiempo.Minutes;
+            this.segundos = (int)tiempo.Seconds;
+            this.centisegundos = (int)(tiempo.Milliseconds / 10);
         }
 
         /// <summary>
@@ -257,10 +253,10 @@ namespace PhysicXNA.SistemaPerfiles
         public static PuntuacionesJuego operator +(PuntuacionesJuego primero, PuntuacionesJuego segundo)
         {
             primero.centisegundos += segundo.centisegundos;
-            primero.segundos += (Byte)(segundo.centisegundos / 100);
+            primero.segundos += (int)(segundo.centisegundos / 100);
             primero.centisegundos %= 100;
             primero.segundos += segundo.segundos;
-            primero.minutos += (Byte)(segundo.segundos / 60);
+            primero.minutos += (int)(segundo.segundos / 60);
             primero.segundos %= 60;
             primero.minutos += segundo.minutos;
             return primero;
@@ -269,14 +265,12 @@ namespace PhysicXNA.SistemaPerfiles
 
     /// <summary>Estructura que contiene toda la información del perfil de jugador.
     /// <para>Esta información incluye: nombre del perfil, último nivel alcanzado, dificultad del juego, opciones de vídeo, sonido y controles y las puntuaciones de todos los niveles.</para></summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct PerfilJugador
     {
         /// <summary>Información del perfil, y configuraciones.</summary>
 	    public OpcionesJuego opciones;
         /// <summary>Arreglo de puntuaciones de los 5 niveles.</summary>
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = ListaPerfilesJugador.numeroNiveles)]
-	    public PuntuacionesJuego[] puntuaciones;
+        public PuntuacionesJuego[] puntuaciones;
 
         /// <summary>
         /// Crea una instancia de esta estructura con puntuaciones vacías a partir de una estructura de información de perfil.
@@ -313,15 +307,5 @@ namespace PhysicXNA.SistemaPerfiles
             for (c = 0; c < ListaPerfilesJugador.numeroNiveles; c++) niveles += "Nivel " + (c + 1).ToString() + "   : " + puntuaciones[c].ToString() + "\n";
             return opciones.ToString() + "\n\n" + niveles;
         }
-    }
-
-    /// <summary>Estructura de un nodo que forma parte de una lista de perfiles de jugador.</summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 8)]
-    public struct NodoPerfil
-    {
-        /// <summary>Perfil del nodo. Véase <see cref="PerfilJugador"/></summary>
-	    public IntPtr perfil;   // PerfilJugador
-        /// <summary>Siguiente elemento de la lista.</summary>
-	    unsafe public NodoPerfil* siguiente;
     }
 }

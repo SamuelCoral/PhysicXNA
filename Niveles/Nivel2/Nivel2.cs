@@ -151,7 +151,7 @@ namespace PhysicXNA.Niveles.Nivel2
             if (estadoRaton.X < cuerdita.Posicion.X) cursor.AnguloGiro += (float)Math.PI;
             cursor.AnguloGiro += (float)Math.PI / 2;
 
-            if(opciones.invertir_mouse == 0 ? (estadoRaton.LeftButton == ButtonState.Released && estadoRatonAnt.LeftButton == ButtonState.Pressed) :
+            if(!opciones.invertir_mouse ? (estadoRaton.LeftButton == ButtonState.Released && estadoRatonAnt.LeftButton == ButtonState.Pressed) :
                 (estadoRaton.RightButton == ButtonState.Released && estadoRatonAnt.RightButton == ButtonState.Pressed))
             {
                 Vector2 vectorRespuesta = new Vector2(cursor.Posicion.X - resolucionPantalla.Width / 2, cursor.Posicion.Y - resolucionPantalla.Height / 2);
@@ -164,14 +164,14 @@ namespace PhysicXNA.Niveles.Nivel2
                     hud.Anotaciones.Color = Color.Green;
                     if (vecesRepetido >= vecesCompletar) nivelCompletado = true;
                     Reiniciar();
-                    if (opciones.sonidos != 0) bien.Play();
+                    if (opciones.sonidos) bien.Play();
                 }
                 else
                 {
                     tiempoCompletado += new TimeSpan(0, 0, opciones.dificultad == SistemaPerfiles.DificultadJuego.Fácil ? 10 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Medio ? 20 : opciones.dificultad == SistemaPerfiles.DificultadJuego.Difícil ? 30 : 0);
                     tiempoMalo = new TimeSpan(0, 0, 3);
                     hud.Tiempo.Color = Color.Red;
-                    if (opciones.sonidos != 0) mal.Play();
+                    if (opciones.sonidos) mal.Play();
                 }
             }
 
