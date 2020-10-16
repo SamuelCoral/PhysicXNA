@@ -204,6 +204,7 @@ namespace PhysicXNA
                         menu.escenario = (int)EscenarioMenu.SabiasQue;
                         menu.reproductorVideo.Stop();
                         menu.reproductorVideo.Play(menu.fondoPausa);
+                        while(menu.reproductorVideo.GetTexture() == null);
                         MediaPlayer.Stop();
                     }
                     else
@@ -212,6 +213,7 @@ namespace PhysicXNA
                         menu.escenario = 1;
                         menu.reproductorVideo.Stop();
                         menu.reproductorVideo.Play(menu.fondo);
+                        while(menu.reproductorVideo.GetTexture() == null);
                         MediaPlayer.Stop();
                         MediaPlayer.Play(menu.cancion);
                         if (!perfiles[menu.perfilSeleccionado].opciones.musica) MediaPlayer.Pause();

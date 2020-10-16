@@ -213,6 +213,7 @@ namespace PhysicXNA.MenusJuego
             if (pausa)
             {
                 reproductorVideo.Play(fondoPausa);
+                while(reproductorVideo.GetTexture() == null);
                 botones[1][1].visible = false;
                 botones[1][0].texto.Texto = "Reanudar";
                 botones[1][0].ayuda = "Reanuda la partida actual";
@@ -220,6 +221,7 @@ namespace PhysicXNA.MenusJuego
             else
             {
                 reproductorVideo.Play(fondo);
+                while(reproductorVideo.GetTexture() == null);
                 int nivel = perfiles[perfilSeleccionado].opciones.nivel;
                 bool juegoCompletado = perfiles[perfilSeleccionado].opciones.juego_completado;
 
@@ -258,6 +260,7 @@ namespace PhysicXNA.MenusJuego
             click = Content.Load<SoundEffect>("Menu/Click");
             cancion = Content.Load<Song>("Canciones/Enter The Future");
             reproductorVideo.Play(splash);
+            while(reproductorVideo.GetTexture() == null);
             indicadorScroll.CargarContenido(Content);
             cursor.CargarContenido(Content);
             fondoTexto.CargarContenido(Content);
@@ -348,9 +351,8 @@ namespace PhysicXNA.MenusJuego
                     {
                         if (reproductorVideo.State != MediaState.Stopped) reproductorVideo.Stop();
                         reproductorVideo.Play(fondo);
-#if !MONOGAME
-                        reproductorVideo.IsLooped = true;
-#endif
+                        while(reproductorVideo.GetTexture() == null);
+                        //reproductorVideo.IsLooped = true;
                         MediaPlayer.Play(cancion);
                         escenario = (int)EscenarioMenu.PantallaInicio;
                     }

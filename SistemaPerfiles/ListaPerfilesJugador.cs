@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.IO;
-using System.Text.Json;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace PhysicXNA.SistemaPerfiles
@@ -35,7 +35,7 @@ namespace PhysicXNA.SistemaPerfiles
         {
             try
             {
-                lista = JsonSerializer.Deserialize<List<PerfilJugador>>(File.ReadAllText(rutaArchivo));
+                lista = JsonConvert.DeserializeObject<List<PerfilJugador>>(File.ReadAllText(rutaArchivo));
             }
             catch(FileNotFoundException)
             {
@@ -57,7 +57,7 @@ namespace PhysicXNA.SistemaPerfiles
         {
             try
             {
-                File.WriteAllText(rutaArchivo, JsonSerializer.Serialize(lista));
+                File.WriteAllText(rutaArchivo, JsonConvert.SerializeObject(lista, Formatting.Indented));
             }
             catch(IOException)
             {

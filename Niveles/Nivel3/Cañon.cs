@@ -21,7 +21,7 @@ namespace PhysicXNA.Niveles.Nivel3
         /// </summary>
         /// <param name="velocidad"><seealso cref="velocidad"/></param>
         public Cañon(float velocidad)
-            : base("Recursos/Nivel3/cañon", Vector2.Zero, escala: new Vector2(0.4f))
+            : base("Recursos/Nivel3/canon", Vector2.Zero, escala: new Vector2(0.4f))
         {
             disparando = false;
             this.velocidad = velocidad;

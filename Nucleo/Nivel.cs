@@ -89,6 +89,7 @@ namespace PhysicXNA.Nucleo
             estadoRatonAnt = new MouseState();
             nivelCompletado = false;
             if (reproduciendoVideo) reproductorVideo.Play(videoIntro);
+            while(reproductorVideo.GetTexture() == null);
 
             dibujarAntes.Clear();
             botonPausa.Posicion = new Vector2((float)resolucionPantalla.Width - botonPausa.Ancho - 10, 10);
